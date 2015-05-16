@@ -2,7 +2,7 @@
 /*globals describe, it */
 'use strict';
 
-var jSend = function () { return; };
+var jSend = function (req, res, next) { return next(); };
 
 var assert = require('assert');
 
