@@ -40,4 +40,10 @@ describe('jSend', function () {
     jSend(req, res, next);
     assert(res.jSend);
   });
+  describe('res.jSend', function () {
+    it('should be a function', function () {
+      jSend(req, res, next);
+      assert(typeof res.jSend === 'function');
+    });
+  });
 });
