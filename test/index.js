@@ -3,7 +3,7 @@
 'use strict';
 
 var jSend = function (req, res, next) {
-  res.jSend = true;
+  res.jSend = function () { return; };
   return next();
 };
 
