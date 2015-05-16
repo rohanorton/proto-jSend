@@ -10,4 +10,7 @@ describe('jSend', function () {
   it('should exist', function () {
     assert(jSend);
   });
+  it('should be a function', function () {
+    assert(typeof jSend === 'function');
+  });
 });
