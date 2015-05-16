@@ -19,7 +19,7 @@ function setFunctionCalled() {
 beforeEach(function () {
   functionCalled = false;
   req = null;
-  res = null;
+  res = {};
   next = function () { return; };
 });
 
@@ -34,5 +34,9 @@ describe('jSend', function () {
     next = setFunctionCalled;
     jSend(req, res, next);
     assert(functionCalled);
+  });
+  it('should add jSend to res object', function () {
+    jSend(req, res, next);
+    assert(res.jSend);
   });
 });
