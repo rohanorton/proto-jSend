@@ -2,12 +2,8 @@
 /*globals describe, it, beforeEach */
 'use strict';
 
-var jSend = function (req, res, next) {
-  res.jSend = function () { return; };
-  return next();
-};
-
-var assert = require('assert'),
+var jSend =require('../'),
+  assert = require('assert'),
   functionCalled,
   req,
   res,
@@ -41,8 +37,10 @@ describe('jSend', function () {
     assert(res.jSend);
   });
   describe('res.jSend', function () {
-    it('should be a function', function () {
+    beforeEach(function () {
       jSend(req, res, next);
+    });
+    it('should be a function', function () {
       assert(typeof res.jSend === 'function');
     });
   });
