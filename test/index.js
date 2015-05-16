@@ -4,6 +4,7 @@
 
 var jSend =require('../'),
   assert = require('assert'),
+  _ = require('lodash'),
   functionCalled,
   req,
   res,
@@ -50,7 +51,7 @@ describe('jSend', function () {
     });
     it('should send object to res.json when invoked', function (done) {
       res.json = function (object) {
-        assert(object && typeof object === 'object');
+        assert(_(object).isObject());
         done();
       };
       res.jSend();
