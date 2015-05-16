@@ -4,7 +4,8 @@
 module.exports = function (req, res, next) {
   res.jSend = function () {
     return res.json({
-      status: 'success'
+      status: 'success',
+      data: null
     });
   };
   return next();
