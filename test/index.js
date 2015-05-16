@@ -70,5 +70,13 @@ describe('jSend', function () {
       };
       res.jSend();
     });
+    it('sends object to res.json with data set to res.jSend parameter', function (done) {
+      var data = [ 'this', 'is', 'a', 'test' ];
+      res.json = function (object) {
+        assert.deepEqual(object.data, data);
+        done();
+      };
+      res.jSend(data);
+    });
   });
 });
