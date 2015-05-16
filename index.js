@@ -1,4 +1,4 @@
-/*jslint node:true indent:2 unparam:true */
+/*jslint node:true indent:2 */
 'use strict';
 
 module.exports = function (req, res, next) {
@@ -22,4 +22,3 @@ module.exports = function (req, res, next) {
 
   return next();
 };
-

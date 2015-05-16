@@ -23,7 +23,7 @@ beforeEach(function () {
   functionCalled = false;
   req = httpMocks.createRequest();
   res = httpMocks.createResponse();
-  next = function () { return; };
+  next = _.noop;
 });
 
 describe('jSend', function () {
