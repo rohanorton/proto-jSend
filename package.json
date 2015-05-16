@@ -1,0 +1,17 @@
+{
+  "name": "jsend",
+  "version": "0.0.0",
+  "description": "jSend middleware for express",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp"
+  },
+  "author": "Rohan Orton",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-mocha": "^2.0.1",
+    "gulp-util": "^3.0.4",
+    "mocha": "^2.2.5"
+  }
+}
