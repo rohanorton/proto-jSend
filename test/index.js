@@ -56,5 +56,12 @@ describe('jSend', function () {
       };
       res.jSend();
     });
+    it('send object with status set to "success"', function (done) {
+      res.json = function (object) {
+        assert.equal(object.status, 'success');
+        done();
+      };
+      res.jSend();
+    });
   });
 });
