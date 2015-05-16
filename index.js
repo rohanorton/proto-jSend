@@ -2,7 +2,9 @@
 'use strict';
 
 module.exports = function (req, res, next) {
-  res.jSend = function () { return; };
+  res.jSend = function () {
+    return res.json();
+  };
   return next();
 };
 
