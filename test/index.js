@@ -63,5 +63,12 @@ describe('jSend', function () {
       };
       res.jSend();
     });
+    it('send object to res.json with data set to null', function (done) {
+      res.json = function (object) {
+        assert(object.data === null);
+        done();
+      };
+      res.jSend();
+    });
   });
 });
