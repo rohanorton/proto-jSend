@@ -1,10 +1,27 @@
 /*jslint node:true indent:2 */
-/*globals describe, it */
+/*globals describe, it, beforeEach */
 'use strict';
 
-var jSend = function (req, res, next) { return next(); };
+var jSend = function (req, res, next) {
+  return next();
+};
 
-var assert = require('assert');
+var assert = require('assert'),
+  functionCalled,
+  req,
+  res,
+  next;
+
+function setFunctionCalled() {
+  functionCalled = true;
+}
+
+beforeEach(function () {
+  functionCalled = false;
+  req = null;
+  res = null;
+  next = function () { return; };
+});
 
 describe('jSend', function () {
   it('should exist', function () {
@@ -14,11 +31,8 @@ describe('jSend', function () {
     assert(typeof jSend === 'function');
   });
   it('should call third parameter "next" function as callback', function () {
-    var called = false,
-      req = null,
-      res = null,
-      next = function () { called = true; };
+    next = setFunctionCalled;
     jSend(req, res, next);
-    assert(called);
+    assert(functionCalled);
   });
 });
