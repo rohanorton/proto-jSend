@@ -1,8 +1,8 @@
-/*jslint node:true indent:2 */
+/*jslint node:true indent:2 nomen:true */
 /*globals describe, it, beforeEach */
 'use strict';
 
-var jSend =require('../'),
+var jSend = require('../'),
   assert = require('assert'),
   _ = require('lodash'),
   functionCalled,
@@ -56,7 +56,7 @@ describe('jSend', function () {
       };
       res.jSend();
     });
-    it('send object with status set to "success"', function (done) {
+    it('send object to res.json with status set to "success"', function (done) {
       res.json = function (object) {
         assert.equal(object.status, 'success');
         done();
