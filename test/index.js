@@ -3,6 +3,7 @@
 'use strict';
 
 var jSend = require('../'),
+  httpMocks = require('node-mocks-http'),
   assert = require('assert'),
   _ = require('lodash'),
   functionCalled,
@@ -16,8 +17,8 @@ function setFunctionCalled() {
 
 beforeEach(function () {
   functionCalled = false;
-  req = null;
-  res = {};
+  req = httpMocks.createRequest();
+  res = httpMocks.createResponse();
   next = function () { return; };
 });
 
@@ -77,6 +78,10 @@ describe('jSend', function () {
         done();
       };
       res.jSend(data);
+    });
+    it('sends response code of 200', function () {
+      res.jSend();
+      assert.equal(res.statusCode, 200);
     });
   });
 });
