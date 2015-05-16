@@ -3,7 +3,9 @@
 
 module.exports = function (req, res, next) {
   res.jSend = function () {
-    return res.json({});
+    return res.json({
+      status: 'success'
+    });
   };
   return next();
 };
