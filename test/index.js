@@ -2,6 +2,8 @@
 /*globals describe, it */
 'use strict';
 
+var jSend = true;
+
 var assert = require('assert');
 
 describe('jSend', function () {
