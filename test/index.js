@@ -43,5 +43,10 @@ describe('jSend', function () {
     it('should be a function', function () {
       assert(typeof res.jSend === 'function');
     });
+    it('should call res.json when invoked', function () {
+      res.json = setFunctionCalled;
+      res.jSend();
+      assert(functionCalled);
+    });
   });
 });
