@@ -15,6 +15,10 @@ function setFunctionCalled() {
   functionCalled = true;
 }
 
+function getResponseData() {
+  return JSON.parse(res._getData());
+}
+
 beforeEach(function () {
   functionCalled = false;
   req = httpMocks.createRequest();
@@ -57,29 +61,20 @@ describe('jSend', function () {
       };
       res.jSend();
     });
-    it('send object to res.json with status set to "success"', function (done) {
-      res.json = function (object) {
-        assert.equal(object.status, 'success');
-        done();
-      };
+    it('should send response with status set to "success"', function () {
       res.jSend();
+      assert.equal(getResponseData().status, 'success');
     });
-    it('send object to res.json with data set to null', function (done) {
-      res.json = function (object) {
-        assert(object.data === null);
-        done();
-      };
+    it('should send response with data set to null', function () {
       res.jSend();
+      assert(getResponseData().data === null);
     });
-    it('sends object to res.json with data set to res.jSend parameter', function (done) {
+    it('should send response with data set to res.jSend parameter', function () {
       var data = [ 'this', 'is', 'a', 'test' ];
-      res.json = function (object) {
-        assert.deepEqual(object.data, data);
-        done();
-      };
       res.jSend(data);
+      assert.deepEqual(getResponseData().data, data);
     });
-    it('sends response code of 200', function () {
+    it('should send response code of 200', function () {
       res.jSend();
       assert.equal(res.statusCode, 200);
     });
