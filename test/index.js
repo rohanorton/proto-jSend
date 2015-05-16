@@ -78,5 +78,10 @@ describe('jSend', function () {
       res.jSend();
       assert.equal(res.statusCode, 200);
     });
+    it('should send response code of 201 if request was a POST', function () {
+      req.method = 'POST';
+      res.jSend();
+      assert.equal(res.statusCode, 201);
+    });
   });
 });
