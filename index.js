@@ -3,7 +3,11 @@
 
 module.exports = function (req, res, next) {
   res.jSend = function (data) {
-    return res.json({
+    var code = 200;
+    if (req.method === 'POST') {
+      code = 201;
+    }
+    return res.status(code).json({
       status: 'success',
       data: data || null
     });
