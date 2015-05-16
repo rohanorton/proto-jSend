@@ -48,5 +48,12 @@ describe('jSend', function () {
       res.jSend();
       assert(functionCalled);
     });
+    it('should send object to res.json when invoked', function (done) {
+      res.json = function (object) {
+        assert(object && typeof object === 'object');
+        done();
+      };
+      res.jSend();
+    });
   });
 });
