@@ -11,10 +11,14 @@ module.exports = function (req, res, next) {
     return req.method === 'POST' ? 201 : 200;
   }
 
+  function getSuccessResponseData(data) {
+    return (!data || req.method === 'DELETE' ) ? null : data;
+  }
+
   res.jSend = function (data) {
     var payload = {
       status: 'success',
-      data: (!data || req.method === 'DELETE' ) ? null : data
+      data: getSuccessResponseData(data)
     };
 
     return sendResponse(getSuccessCode(), payload);
