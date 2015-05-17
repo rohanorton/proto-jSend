@@ -83,5 +83,10 @@ describe('jSend', function () {
       res.jSend();
       assert.equal(res.statusCode, 201);
     });
+    it('should send data of null if request was a DELETE', function () {
+      req.method = 'DELETE';
+      res.jSend([ 'this', 'should', 'not', 'be', 'sent', 'as', 'data']);
+      assert(getResponseData().data === null);
+    });
   });
 });
