@@ -14,7 +14,7 @@ module.exports = function (req, res, next) {
   res.jSend = function (data) {
     var payload = {
       status: 'success',
-      data: data || null
+      data: (!data || req.method === 'DELETE' ) ? null : data
     };
 
     return sendResponse(getSuccessCode(), payload);
