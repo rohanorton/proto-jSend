@@ -55,7 +55,7 @@ describe('jSend', function () {
     });
     it('should send response with status set to "success"', function () {
       res.jSend();
-      assert.equal(getResponseData().status, 'success');
+      expect(getResponseData().status).toBe('success');
     });
     it('should send response with data set to null', function () {
       res.jSend();
@@ -73,7 +73,7 @@ describe('jSend', function () {
     it('should send response code of 201 if request was a POST', function () {
       req.method = 'POST';
       res.jSend();
-      assert.equal(res.statusCode, 201);
+      expect(res.statusCode).toBe(201);
     });
     it('should send data of null if request was a DELETE', function () {
       req.method = 'DELETE';
