@@ -10,10 +10,6 @@ var jSend = require('../'),
   res,
   next;
 
-function setFunctionCalled() {
-  functionCalled = true;
-}
-
 function getResponseData() {
   return JSON.parse(res._getData());
 }
@@ -23,6 +19,7 @@ beforeEach(function () {
   req = httpMocks.createRequest();
   res = httpMocks.createResponse();
   next = function () { return;};
+  spyOn(res, 'json').and.callThrough();
 });
 
 describe('jSend', function () {
@@ -33,9 +30,9 @@ describe('jSend', function () {
     assert(typeof jSend === 'function');
   });
   it('should call third parameter "next" function as callback', function () {
-    next = setFunctionCalled;
+    next = jasmine.createSpy('spy');
     jSend(req, res, next);
-    assert(functionCalled);
+    expect(next).toHaveBeenCalled();
   });
   it('should add jSend to res object', function () {
     jSend(req, res, next);
@@ -49,12 +46,10 @@ describe('jSend', function () {
       assert(typeof res.jSend === 'function');
     });
     it('should call res.json when invoked', function () {
-      res.json = setFunctionCalled;
       res.jSend();
-      assert(functionCalled);
+      expect(res.json).toHaveBeenCalled();
     });
     it('should send object to res.json when invoked', function () {
-      spyOn(res, 'json');
       res.jSend();
       expect(res.json).toHaveBeenCalledWith(jasmine.any(Object));
     });
