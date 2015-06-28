@@ -2,7 +2,6 @@
 res.jSend.error
 ------------
 - This is for 5xx type errors (i.e. internal server error)
-- I guess that the footprint would look like this:
 ```js
 /**
  * Send custom jSend "error" messages to client
