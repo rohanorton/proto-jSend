@@ -1,11 +1,10 @@
 /*jslint node:true indent:2 nomen:true */
-/*globals describe, it, beforeEach */
+/*globals jasmine, expect, describe, it, beforeEach, spyOn */
 'use strict';
 
 var jSend = require('../'),
   httpMocks = require('node-mocks-http'),
   assert = require('assert'),
-  _ = require('lodash'),
   functionCalled,
   req,
   res,
@@ -23,7 +22,7 @@ beforeEach(function () {
   functionCalled = false;
   req = httpMocks.createRequest();
   res = httpMocks.createResponse();
-  next = _.noop;
+  next = function () { return;};
 });
 
 describe('jSend', function () {
@@ -54,12 +53,10 @@ describe('jSend', function () {
       res.jSend();
       assert(functionCalled);
     });
-    it('should send object to res.json when invoked', function (done) {
-      res.json = function (object) {
-        assert(_(object).isObject());
-        done();
-      };
+    it('should send object to res.json when invoked', function () {
+      spyOn(res, 'json');
       res.jSend();
+      expect(res.json).toHaveBeenCalledWith(jasmine.any(Object));
     });
     it('should send response with status set to "success"', function () {
       res.jSend();
