@@ -18,7 +18,7 @@ beforeEach(function () {
   functionCalled = false;
   req = httpMocks.createRequest();
   res = httpMocks.createResponse();
-  next = function () { return;};
+  next = function () { return; };
   spyOn(res, 'json').and.callThrough();
 });
 

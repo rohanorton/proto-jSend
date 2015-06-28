@@ -12,7 +12,7 @@ module.exports = function (req, res, next) {
   }
 
   function getSuccessResponseData(data) {
-    return (!data || req.method === 'DELETE' ) ? null : data;
+    return (!data || req.method === 'DELETE') ? null : data;
   }
 
   res.jSend = function (data) {

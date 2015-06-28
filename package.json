@@ -4,12 +4,14 @@
   "description": "jSend middleware for express",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "lint": "jslint *.js **/*.js"
   },
   "author": "Rohan Orton",
   "license": "MIT",
   "devDependencies": {
     "jasmine": "^2.3.1",
+    "jslint": "^0.9.1",
     "node-mocks-http": "^1.4.2"
   }
 }
