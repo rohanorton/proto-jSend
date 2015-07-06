@@ -119,7 +119,10 @@ describe('jSend', function () {
         res.jSend.error({code: 500, message: 'Example message', data: { foo: 'bar'}});
         expect(getResponseData().data).toEqual({foo: 'bar'});
       });
-      // If the call returns no data data should be set to null.
+      it('should set data to null if not specified', function () {
+        res.jSend.error({code: 500, message: 'Example message'});
+        expect(getResponseData().data).toEqual(null);
+      });
     });
   });
 });
