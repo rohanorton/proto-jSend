@@ -84,6 +84,9 @@ describe('jSend', function () {
       it('should be function', function () {
         expect(res.jSend.error).toEqual(jasmine.any(Function));
       });
+      it('should throw an error if invoked without an argument', function () {
+        expect(res.jSend.error).toThrowError('res.jSend.error invoked without argument');
+      });
     });
   });
 });
