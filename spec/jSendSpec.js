@@ -88,26 +88,26 @@ describe('jSend', function () {
       it('should throw correct error if invoked without an argument', function () {
         expect(res.jSend.error).toThrowError('res.jSend.error invoked without argument');
       });
-      it('should throw correct error if status not defined', function () {
+      it('should throw correct error if code is not a number', function () {
         expect(function () {
-          res.jSend.error({message: 'foo'});
-        }).toThrowError('res.jSend.error options validation: expected property status to be of type number (was undefined)');
+          res.jSend.error({message: 'foo', code: 'should be number'});
+        }).toThrowError('res.jSend.error options validation: expected optional property code to be of type number (was string)');
       });
       it('should throw correct error if message not defined', function () {
         expect(function () {
-          res.jSend.error({status: 500});
+          res.jSend.error({code: 500});
         }).toThrowError('res.jSend.error options validation: expected property message to be of type string (was undefined)');
       });
-      it('should set res status code to specified status', function () {
-        res.jSend.error({status: 501, message: 'Not Implemented'});
+      it('should set res status code to be specified code', function () {
+        res.jSend.error({code: 501, message: 'Not Implemented'});
         expect(res.statusCode).toEqual(501);
       });
       it('should set response status to error', function () {
-        res.jSend.error({status: 500, message: 'Internal Server Error'});
+        res.jSend.error({code: 500, message: 'Internal Server Error'});
         expect(getResponseData().status).toEqual('error');
       });
       it('should set response message', function () {
-        res.jSend.error({status: 500, message: 'Example message'});
+        res.jSend.error({code: 500, message: 'Example message'});
         expect(getResponseData().message).toEqual('Example message');
       });
     });

@@ -29,18 +29,20 @@ module.exports = function (req, res, next) {
     if (!options) {
       throw new Error('res.jSend.error invoked without argument');
     }
-    var err = arg.err(options, {
-      status: "number",
-      message: "string"
-    });
+    var responseData = {},
+      err = arg.err(options, {
+        message: "string"
+      }, {
+        code: "number"  
+      });
     if (err) {
       err = err.replace('argument', 'property');
       throw new Error('res.jSend.error options validation: ' + err);
     }
-    return sendResponse(options.status, {
-      status: 'error',
-      message: options.message
-    });
+    responseData.code = options.code;
+    responseData.message = options.message;
+    responseData.status = 'error';
+    return sendResponse(options.code, responseData);
   };
 
   return next();
