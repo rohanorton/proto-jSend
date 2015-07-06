@@ -93,6 +93,11 @@ describe('jSend', function () {
           res.jSend.error({message: 'foo', code: 'should be number'});
         }).toThrowError('res.jSend.error options validation: expected optional property code to be of type number (was string)');
       });
+      it('should throw correct error if data is not an object', function () {
+        expect(function () {
+          res.jSend.error({message: 'foo', code: 500, data: 'not an object'});
+        }).toThrowError('res.jSend.error options validation: expected optional property data to be of type object (was string)');
+      });
       it('should throw correct error if message not defined', function () {
         expect(function () {
           res.jSend.error({code: 500});
@@ -110,6 +115,11 @@ describe('jSend', function () {
         res.jSend.error({code: 500, message: 'Example message'});
         expect(getResponseData().message).toEqual('Example message');
       });
+      fit('should set response data', function () {
+        res.jSend.error({code: 500, message: 'Example message', data: { foo: 'bar'}});
+        expect(getResponseData().data).toEqual({foo: 'bar'});
+      });
+      // If the call returns no data data should be set to null.
     });
   });
 });
