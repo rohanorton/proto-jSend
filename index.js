@@ -1,5 +1,6 @@
-/*jslint node:true indent:2 */
+/*jslint node:true indent:2*/
 'use strict';
+var arg = require("arg-err");
 
 module.exports = function (req, res, next) {
 
@@ -24,8 +25,18 @@ module.exports = function (req, res, next) {
     return sendResponse(getSuccessCode(), payload);
   };
 
-  res.jSend.error = function () {
-    throw new Error('res.jSend.error invoked without argument');
+  res.jSend.error = function (options) {
+    if (!options) {
+      throw new Error('res.jSend.error invoked without argument');
+    }
+    var err = arg.err(options, {
+      status: "number",
+      message: "string"
+    });
+    if (err) {
+      err = err.replace('argument', 'property');
+      throw new Error('res.jSend.error options validation: ' + err);
+    }
   };
 
   return next();

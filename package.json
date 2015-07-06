@@ -16,5 +16,8 @@
     "jslint": "^0.9.1",
     "node-mocks-http": "^1.4.2",
     "onchange": "^1.1.0"
+  },
+  "dependencies": {
+    "arg-err": "0.0.9"
   }
 }

@@ -80,12 +80,23 @@ describe('jSend', function () {
       res.jSend([ 'this', 'should', 'not', 'be', 'sent', 'as', 'data']);
       assert(getResponseData().data === null);
     });
+
     describe('res.jSend.error', function () {
       it('should be function', function () {
         expect(res.jSend.error).toEqual(jasmine.any(Function));
       });
-      it('should throw an error if invoked without an argument', function () {
+      it('should throw correct error if invoked without an argument', function () {
         expect(res.jSend.error).toThrowError('res.jSend.error invoked without argument');
+      });
+      it('should throw correct error if status not defined', function () {
+        expect(function () {
+          res.jSend.error({message: 'foo'});
+        }).toThrowError('res.jSend.error options validation: expected property status to be of type number (was undefined)');
+      });
+      it('should throw correct error if message not defined', function () {
+        expect(function () {
+          res.jSend.error({status: 500});
+        }).toThrowError('res.jSend.error options validation: expected property message to be of type string (was undefined)');
       });
     });
   });
