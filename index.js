@@ -37,7 +37,10 @@ module.exports = function (req, res, next) {
       err = err.replace('argument', 'property');
       throw new Error('res.jSend.error options validation: ' + err);
     }
-    return sendResponse(options.status, {status: 'error'});
+    return sendResponse(options.status, {
+      status: 'error',
+      message: options.message
+    });
   };
 
   return next();
