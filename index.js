@@ -24,5 +24,7 @@ module.exports = function (req, res, next) {
     return sendResponse(getSuccessCode(), payload);
   };
 
+  res.jSend.error = function () { return; };
+
   return next();
 };
