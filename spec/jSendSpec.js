@@ -80,5 +80,10 @@ describe('jSend', function () {
       res.jSend([ 'this', 'should', 'not', 'be', 'sent', 'as', 'data']);
       assert(getResponseData().data === null);
     });
+    describe('res.jSend.error', function () {
+      it('should be function', function () {
+        expect(res.jSend.error).toEqual(jasmine.any(Function));
+      });
+    });
   });
 });
