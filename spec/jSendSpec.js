@@ -115,7 +115,7 @@ describe('jSend', function () {
         res.jSend.error({code: 500, message: 'Example message'});
         expect(getResponseData().message).toEqual('Example message');
       });
-      fit('should set response data', function () {
+      it('should set response data', function () {
         res.jSend.error({code: 500, message: 'Example message', data: { foo: 'bar'}});
         expect(getResponseData().data).toEqual({foo: 'bar'});
       });

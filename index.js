@@ -33,7 +33,8 @@ module.exports = function (req, res, next) {
       err = arg.err(options, {
         message: "string"
       }, {
-        code: "number"  
+        code: "number",  
+        data: "object"
       });
     if (err) {
       err = err.replace('argument', 'property');
@@ -41,6 +42,7 @@ module.exports = function (req, res, next) {
     }
     responseData.code = options.code;
     responseData.message = options.message;
+    responseData.data = options.data;
     responseData.status = 'error';
     return sendResponse(options.code, responseData);
   };
