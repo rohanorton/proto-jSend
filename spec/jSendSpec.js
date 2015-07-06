@@ -98,6 +98,11 @@ describe('jSend', function () {
           res.jSend.error({status: 500});
         }).toThrowError('res.jSend.error options validation: expected property message to be of type string (was undefined)');
       });
+      fit('should set res status code to specified status', function () {
+        res.jSend.error({status: 501, message: 'Not Implemented'});
+        assert.equal(res.statusCode, 501);
+      });
+      //it('should set res data status to error', function () {
     });
   });
 });
