@@ -100,9 +100,12 @@ describe('jSend', function () {
       });
       it('should set res status code to specified status', function () {
         res.jSend.error({status: 501, message: 'Not Implemented'});
-        assert.equal(res.statusCode, 501);
+        expect(res.statusCode).toEqual(501);
       });
-      //it('should set res data status to error', function () {
+      it('should set res data status to error', function () {
+        res.jSend.error({status: 500, message: 'Internal Server Error'});
+        expect(getResponseData().status).toEqual('error');
+      });
     });
   });
 });
