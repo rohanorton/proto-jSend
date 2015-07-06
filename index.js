@@ -42,7 +42,7 @@ module.exports = function (req, res, next) {
     }
     responseData.code = options.code;
     responseData.message = options.message;
-    responseData.data = options.data;
+    responseData.data = options.data || null;
     responseData.status = 'error';
     return sendResponse(options.code, responseData);
   };
