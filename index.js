@@ -24,7 +24,9 @@ module.exports = function (req, res, next) {
     return sendResponse(getSuccessCode(), payload);
   };
 
-  res.jSend.error = function () { return; };
+  res.jSend.error = function () {
+    throw new Error('res.jSend.error invoked without argument');
+  };
 
   return next();
 };
