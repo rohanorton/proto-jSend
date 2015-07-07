@@ -33,7 +33,7 @@ module.exports = function (req, res, next) {
       err = arg.err(options, {
         message: "string"
       }, {
-        code: "number",  
+        code: "number",
         data: "object"
       });
     if (err) {
