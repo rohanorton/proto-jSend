@@ -132,21 +132,16 @@ describe('jSend', function () {
         });
         expect(getResponseData().data.message).toEqual('Error: the app crashed');
       });
-      /*fit('should format error as data', function () {
+      it('should provide a stacktrace on data if error', function () {
         var exampleError = new Error('the app crashed'),
-          stack = exampleError.stack,
-          expected = { 
-            "message": "Error: the app crashed",
-            "stack": stack
-          };
+          stack = exampleError.stack;
         res.jSend.error({
           code: 500,
-          message: 'Example message',
+          message: 'Internal Server Error',
           data: exampleError
         });
-        expect(getResponseData().data.message).toEqual();
-      });*/
-
+        expect(getResponseData().data.stack).toEqual(stack);
+      });
     });
   });
 });
