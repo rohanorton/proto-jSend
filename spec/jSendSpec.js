@@ -1,5 +1,5 @@
 /*jslint node:true indent:2 nomen:true */
-/*globals jasmine, expect, describe, it, beforeEach, spyOn */
+/*globals jasmine, expect, describe, it, beforeEach, afterEach, spyOn */
 'use strict';
 
 var jSend = require('../'),
@@ -123,34 +123,37 @@ describe('jSend', function () {
         res.jSend.error({code: 500, message: 'Example message'});
         expect(getResponseData().data).toEqual(null);
       });
-      it('should format error as data', function () {
-        var exampleError = new Error('the app crashed');
-        res.jSend.error({
-          code: 500,
-          message: 'Internal Server Error',
-          data: exampleError
+
+      describe('formatting of error data', function () {
+        var exampleError, env, options;
+
+        beforeEach(function () {
+          env = process.env.NODE_ENV;
+          exampleError = new Error('the app crashed');
+          options = {
+            code: 500,
+            message: 'Internal Server Error',
+            data: exampleError
+          };
         });
-        expect(getResponseData().data.message).toEqual('Error: the app crashed');
-      });
-      it('should provide a stacktrace on data if error', function () {
-        var exampleError = new Error('the app crashed'),
-          stack = exampleError.stack;
-        res.jSend.error({
-          code: 500,
-          message: 'Internal Server Error',
-          data: exampleError
+        afterEach(function () {
+          process.env.NODE_ENV = env;
         });
-        expect(getResponseData().data.stack).toEqual(stack);
-      });
-      it('should not output a data object if production environment', function () {
-        process.env.NODE_ENV = 'production';
-        var exampleError = new Error('the app crashed');
-        res.jSend.error({
-          code: 500,
-          message: 'Internal Server Error',
-          data: exampleError
+
+        it('should format error as data', function () {
+          res.jSend.error(options);
+          expect(getResponseData().data.message).toEqual('Error: the app crashed');
         });
-        expect(getResponseData().data).toEqual(undefined);
+        it('should provide a stacktrace on data if error', function () {
+          var stack = exampleError.stack;
+          res.jSend.error(options);
+          expect(getResponseData().data.stack).toEqual(stack);
+        });
+        it('should not output a data object if environment is production', function () {
+          process.env.NODE_ENV = 'production';
+          res.jSend.error(options);
+          expect(getResponseData().data).toEqual(undefined);
+        });
       });
     });
   });
