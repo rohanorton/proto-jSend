@@ -31,28 +31,34 @@ module.exports = function (req, res, next) {
     };
   }
 
-  res.jSend.error = function (options) {
+  function validateErrorOptions(options) {
     if (!options) {
       throw new Error('res.jSend.error invoked without argument');
     }
-    var responseData = {},
-      err = arg.err(options, {
-        message: "string"
-      }, {
-        code: "number",
-        data: "object"
-      });
+    var err = arg.err(options, {
+      message: "string"
+    }, {
+      code: "number",
+      data: "object"
+    });
     if (err) {
+      // Arg-Err calls 'properties' 'arguments'
       err = err.replace('argument', 'property');
       throw new Error('res.jSend.error options validation: ' + err);
     }
+  }
+
+  res.jSend.error = function (options) {
+    validateErrorOptions(options);
     if (options.data instanceof Error) {
       options.data = formatErrorObject(options.data);
     }
-    responseData.code = options.code;
-    responseData.message = options.message;
-    responseData.data = options.data || null;
-    responseData.status = 'error';
+    var responseData = {
+      code: options.code,
+      message: options.message,
+      data: options.data || null,
+      status: 'error'
+    };
     return sendResponse(options.code, responseData);
   };
 
