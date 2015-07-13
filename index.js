@@ -24,6 +24,13 @@ module.exports = function (req, res, next) {
     return sendResponse(getSuccessCode(), payload);
   };
 
+  function formatErrorObject(err) {
+    return {
+      message: String(err),
+      stack: err.stack
+    };
+  }
+
   res.jSend.error = function (options) {
     if (!options) {
       throw new Error('res.jSend.error invoked without argument');
@@ -39,12 +46,8 @@ module.exports = function (req, res, next) {
       err = err.replace('argument', 'property');
       throw new Error('res.jSend.error options validation: ' + err);
     }
-    // if data is error then extract its message
     if (options.data instanceof Error) {
-      options.data = {
-        message: String(options.data),
-        stack: options.data.stack
-      };
+      options.data = formatErrorObject(options.data);
     }
     responseData.code = options.code;
     responseData.message = options.message;
