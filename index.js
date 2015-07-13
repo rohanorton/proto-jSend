@@ -59,6 +59,9 @@ module.exports = function (req, res, next) {
       data: options.data || null,
       status: 'error'
     };
+    if (process.env.NODE_ENV === 'production') {
+      delete responseData.data;
+    }
     return sendResponse(options.code, responseData);
   };
 
