@@ -21,7 +21,6 @@ module.exports = function (req, res, next) {
       status: 'success',
       data: getSuccessResponseData(data)
     };
-
     return sendResponse(getSuccessCode(), payload);
   };
 
@@ -39,6 +38,12 @@ module.exports = function (req, res, next) {
     if (err) {
       err = err.replace('argument', 'property');
       throw new Error('res.jSend.error options validation: ' + err);
+    }
+    // if data is error then extract its message
+    if (options.data instanceof Error) {
+      options.data = {
+        message: String(options.data)
+      };
     }
     responseData.code = options.code;
     responseData.message = options.message;
