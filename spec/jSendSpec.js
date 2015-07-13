@@ -142,6 +142,16 @@ describe('jSend', function () {
         });
         expect(getResponseData().data.stack).toEqual(stack);
       });
+      it('should not output a data object if production environment', function () {
+        process.env.NODE_ENV = 'production';
+        var exampleError = new Error('the app crashed');
+        res.jSend.error({
+          code: 500,
+          message: 'Internal Server Error',
+          data: exampleError
+        });
+        expect(getResponseData().data).toEqual(undefined);
+      });
     });
   });
 });
