@@ -42,7 +42,8 @@ module.exports = function (req, res, next) {
     // if data is error then extract its message
     if (options.data instanceof Error) {
       options.data = {
-        message: String(options.data)
+        message: String(options.data),
+        stack: options.data.stack
       };
     }
     responseData.code = options.code;
