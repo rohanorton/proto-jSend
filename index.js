@@ -54,13 +54,11 @@ module.exports = function (req, res, next) {
       options.data = formatErrorObject(options.data);
     }
     var responseData = {
-      code: options.code,
-      message: options.message,
-      data: options.data || null,
-      status: 'error'
+      status: 'error',
+      message: options.message
     };
-    if (process.env.NODE_ENV === 'production') {
-      delete responseData.data;
+    if (process.env.NODE_ENV !== 'production') {
+      responseData.data = options.data || null;
     }
     return sendResponse(options.code, responseData);
   };
