@@ -49,6 +49,12 @@ describe('jSend', function () {
       res.jSend();
       expect(res.json).toHaveBeenCalled();
     });
+    it('should call res.jsend when req.query.callback is specified', function () {
+      req.query.callback = function () { return undefined; };
+      res.jSend();
+      expect(res.jsonp).toHaveBeenCalled();
+    });
+
     it('should send object to res.json when invoked', function () {
       res.jSend();
       expect(res.json).toHaveBeenCalledWith(jasmine.any(Object));
