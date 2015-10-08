@@ -9,11 +9,11 @@ module.exports = function (req, res, next) {
   }
 
   function getSuccessCode() {
-    return req.method === 'POST' ? 201 : 200;
+    return (req._method === 'POST' || req.method === 'POST') ? 201 : 200;
   }
 
   function getSuccessResponseData(data) {
-    return (!data || req.method === 'DELETE') ? null : data;
+    return (!data || (req.method === 'DELETE')) ? null : data;
   }
 
   res.jSend = function (data) {
