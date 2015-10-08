@@ -75,15 +75,20 @@ describe('jSend', function () {
       res.jSend();
       expect(res.statusCode).toBe(201);
     });
-    it('should send response code of 201 if request was a POST (as specified with _method which will be useful for jsonp)', function () {
+    it('should send response code of 201 if request was a POST (using jsonp with _method)', function () {
       req.method = 'GET'; // jsonp is always GET due to browser limitations
       req._method = 'POST'; // _method property is used to specify method for jsonp requests so jsonp can be used to interact with restful web services
       res.jSend();
       expect(res.statusCode).toBe(201);
     });
-
-    it('should send data of null if request was a DELETE', function () {
+    it('should send data of null if request was a DELETE (not jsonp)', function () {
       req.method = 'DELETE';
+      res.jSend([ 'this', 'should', 'not', 'be', 'sent', 'as', 'data']);
+      assert(getResponseData().data === null);
+    });
+    it('should send data of null if request was a DELETE (using jsonp with _method)', function () {
+      req.method = 'GET';
+      req._method = 'DELETE';
       res.jSend([ 'this', 'should', 'not', 'be', 'sent', 'as', 'data']);
       assert(getResponseData().data === null);
     });
