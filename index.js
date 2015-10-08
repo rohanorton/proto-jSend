@@ -5,6 +5,9 @@ var arg = require("arg-err");
 module.exports = function (req, res, next) {
 
   function sendResponse(code, json) {
+    if (req.query.callback) {
+      return res.jsonp(json);
+    }
     return res.status(code).json(json);
   }
 

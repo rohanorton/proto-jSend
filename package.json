@@ -14,7 +14,7 @@
   "devDependencies": {
     "jasmine": "^2.3.1",
     "jslint": "^0.9.1",
-    "node-mocks-http": "^1.4.2",
+    "node-mocks-http": "git+https://github.com/Abe404/node-mocks-http.git",
     "onchange": "^1.1.0"
   },
   "dependencies": {

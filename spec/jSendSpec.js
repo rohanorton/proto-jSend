@@ -20,6 +20,7 @@ beforeEach(function () {
   res = httpMocks.createResponse();
   next = function () { return; };
   spyOn(res, 'json').and.callThrough();
+  spyOn(res, 'jsonp').and.callThrough();
 });
 
 describe('jSend', function () {
