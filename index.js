@@ -19,11 +19,14 @@ module.exports = function (req, res, next) {
     return (!data || (req._method === 'DELETE' || req.method === 'DELETE')) ? null : data;
   }
 
-  res.jSend = function (data) {
+  res.jSend = function (data, metadata) {
     var payload = {
       status: 'success',
       data: getSuccessResponseData(data)
     };
+    if (metadata) {
+      payload.metadata = metadata;
+    }
     return sendResponse(getSuccessCode(), payload);
   };
 

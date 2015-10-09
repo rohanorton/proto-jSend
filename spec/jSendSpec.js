@@ -73,6 +73,10 @@ describe('jSend', function () {
       res.jSend(data);
       assert.deepEqual(getResponseData().data, data);
     });
+    it('should add metadata if it is specified', function () {
+      res.jSend({ posts: ['data']}, { count: 1});
+      assert.deepEqual(getResponseData().metadata, {count: 1});
+    });
     it('should send response code of 200', function () {
       res.jSend();
       assert.equal(res.statusCode, 200);
