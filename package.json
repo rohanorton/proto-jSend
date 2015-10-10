@@ -1,19 +1,23 @@
 {
-  "name": "jsend",
+  "name": "proto-jsend",
   "version": "0.0.0",
   "description": "jSend middleware for express",
   "main": "index.js",
   "scripts": {
-    "test": "gulp"
+    "test": "jasmine",
+    "lint": "jslint *.js **/*.js",
+    "test:watch": "npm test -s; onchange '*.js' '**/*.js' -- npm test -s",
+    "lint:watch": "npm run lint -s; onchange '*.js' '**/*.js' -- npm run lint -s"
   },
   "author": "Rohan Orton",
   "license": "MIT",
   "devDependencies": {
-    "gulp": "^3.8.11",
-    "gulp-mocha": "^2.0.1",
-    "gulp-util": "^3.0.4",
-    "lodash": "^3.8.0",
-    "mocha": "^2.2.5",
-    "node-mocks-http": "^1.4.2"
+    "jasmine": "^2.3.1",
+    "jslint": "^0.9.1",
+    "node-mocks-http": "git+https://github.com/Abe404/node-mocks-http.git",
+    "onchange": "^1.1.0"
+  },
+  "dependencies": {
+    "arg-err": "0.0.9"
   }
 }
