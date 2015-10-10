@@ -34,7 +34,7 @@ res.jSend.error
  * Send custom jSend "error" messages to client
  *
  * @param {Object} arguments - Object containing options for jSend.error
- * @param {Number} arguments.code - HTTP Status Code 5xx
+ * @param {Number} arguments.code - HTTP Status Code 5xx (defaults to 500)
  * @param {String} arguments.message - Message to be sent to the client
  * @param {Object} [arguments.data] - Object to be sent to the client
  */
@@ -67,7 +67,7 @@ HTTP/1.1 500 Error
 }
 ```
 
-res.jSend Fail
+res.jSend.fail
 ----------
 - This is for 4xx type errors (i.e. bad request, unauthorised etc.)
 - Footprint:
@@ -76,7 +76,7 @@ res.jSend Fail
  * Send custom jSend "fail" messages to client
  *
  * @param {Object} arguments - Object containing options for jSend.fail
- * @param {Number} arguments.code - HTTP Status Code 4xx
+ * @param {Number} arguments.code - HTTP Status Code 4xx (defailts to 400)
  * @param {Object} arguments.data - Object to be sent to the Client
  */
 res.jSend.fail = function (arguments) {
