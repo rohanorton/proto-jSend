@@ -39,7 +39,7 @@ module.exports = function (req, res, next) {
 
   function validateErrorOptions(options) {
     if (!options) {
-      throw new Error('res.jSend.error invoked without argument');
+      throw new Error('res.jSend.error invoked without options');
     }
     var err = arg.err(options, {
       message: "string"
@@ -54,13 +54,13 @@ module.exports = function (req, res, next) {
     }
   }
 
+
   res.jSend.error = function (options) {
     validateErrorOptions(options);
     if (options.data instanceof Error) {
       options.data = formatErrorObject(options.data);
     }
     if (options.code === undefined) {
-      console.log('setting code to 500');
       options.code = 500;
     }
     var responseData = {
@@ -73,6 +73,36 @@ module.exports = function (req, res, next) {
     }
     return sendResponse(options.code, responseData);
   };
+
+  function validateFailOptions(options) {
+    if (!options) {
+      throw new Error('res.jSend.fail invoked without options');
+    }
+    var err = arg.err(options, {
+      data: "object"
+    }, {
+      code: "number",
+    });
+    if (err) {
+      // Arg-Err calls 'properties' 'arguments'
+      err = err.replace('argument', 'property');
+      throw new Error('res.jSend.fail options validation: ' + err);
+    }
+  }
+
+  res.jSend.fail = function (options) {
+    validateFailOptions(options);
+    if (options.code === undefined) {
+      options.code = 400;
+    }
+    var responseData = {
+      status: 'fail',
+      code: options.code,
+      data: options.data
+    };
+    return sendResponse(options.code, responseData);
+  };
+
 
   return next();
 };
