@@ -181,5 +181,28 @@ describe('jSend', function () {
         });
       });
     });
+
+    describe('res.jSend.fail', function () {
+      it('should be function', function () {
+        expect(res.jSend.fail).toEqual(jasmine.any(Function));
+      });
+      it('should default code to 400', function () {
+        res.jSend.fail({data: { validationMessage: 'foo'}});
+        expect(res.statusCode).toBe(400);
+        expect(getResponseData().code).toEqual(400);
+      });
+      it('should throw correct error if data is not defined', function () {
+        expect(function () {
+          res.jSend.fail({message: 'foo', code: 404});
+        }).toThrowError('res.jSend.fail options validation: expected property data to be of type object (was undefined)');
+      });
+      it('should throw correct error if code is not a number', function () {
+        expect(function () {
+          res.jSend.fail({message: 'foo', data: { validationMessage: 'foo'}, code: 'should be number'});
+        }).toThrowError('res.jSend.fail options validation: expected optional property code to be of type number (was string)');
+      });
+
+
+    });
   });
 });
