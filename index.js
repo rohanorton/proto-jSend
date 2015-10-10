@@ -96,7 +96,9 @@ module.exports = function (req, res, next) {
       options.code = 400;
     }
     var responseData = {
-      code: options.code
+      status: 'fail',
+      code: options.code,
+      data: options.data
     };
     return sendResponse(options.code, responseData);
   };

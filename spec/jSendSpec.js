@@ -201,8 +201,18 @@ describe('jSend', function () {
           res.jSend.fail({message: 'foo', data: { validationMessage: 'foo'}, code: 'should be number'});
         }).toThrowError('res.jSend.fail options validation: expected optional property code to be of type number (was string)');
       });
-
-
+      it('should set res status code to be specified code', function () {
+        res.jSend.fail({code: 401, data: { validationMessage: 'foo'}});
+        expect(res.statusCode).toEqual(401);
+      });
+      it('should set response status to fail', function () {
+        res.jSend.fail({ data: { validationMessage: 'foo'}});
+        expect(getResponseData().status).toEqual('fail');
+      });
+      it('should set response data', function () {
+        res.jSend.fail({ data: { foo: 'bar'}});
+        expect(getResponseData().data).toEqual({foo: 'bar'});
+      });
     });
   });
 });
