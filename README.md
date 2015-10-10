@@ -3,20 +3,19 @@ jSend
 
 Express middleware for jSend responses
 
-When using this module all output json should conform to the jsend specification found at:
+This module simplifies outputting data which conforms to the jsend specification found at:
 http://labs.omniti.com/labs/jsend
-
 
 ### Methods
 
-#### res.jSend(data, metadata) 
-  data and metadata are optional.
+#### res.jSend(data) 
+  data (type: Any, optional)
 
+  res.jSend will infer the status code (200 or 201 from the request http method)
+  if jsonp is used req.method is always 'GET' so in this case req._method property must be set to the desired method e.g 'POST' if you wish to receive a 201 code
 
 #### res.jSend.error(options)
-  options properties are:
-  message (optional)
-  data (optional)
-  code (optional) // this sets the http response code
-
-   
+  options object properties are:
+  message (type: String, required)
+  data (type: Object, optional)
+  code (type: Number, optional) // this sets the http response code
