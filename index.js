@@ -79,7 +79,7 @@ module.exports = function (req, res, next) {
       throw new Error('res.jSend.fail invoked without options');
     }
     var err = arg.err(options, {
-      data: "object"
+      data: ["object", "string"]
     }, {
       code: "number",
     });
