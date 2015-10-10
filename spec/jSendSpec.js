@@ -194,7 +194,7 @@ describe('jSend', function () {
       it('should throw correct error if data is not defined', function () {
         expect(function () {
           res.jSend.fail({message: 'foo', code: 404});
-        }).toThrowError('res.jSend.fail options validation: expected property data to be of type object (was undefined)');
+        }).toThrowError('res.jSend.fail options validation: expected property data to be of type object or string (was undefined)');
       });
       it('should throw correct error if code is not a number', function () {
         expect(function () {
