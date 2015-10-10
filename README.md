@@ -67,7 +67,7 @@ HTTP/1.1 500 Error
 }
 ```
 
-res.jSend Fail
+res.jSend.fail
 ----------
 - This is for 4xx type errors (i.e. bad request, unauthorised etc.)
 - Footprint:
