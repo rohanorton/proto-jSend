@@ -108,8 +108,10 @@ describe('jSend', function () {
       it('should be function', function () {
         expect(res.jSend.error).toEqual(jasmine.any(Function));
       });
-      it('should throw correct error if invoked without an argument', function () {
-        expect(res.jSend.error).toThrowError('res.jSend.error invoked without argument');
+      it('should default code to 500', function () {
+        res.jSend.error({message: 'foo'});
+        expect(res.statusCode).toBe(500);
+        expect(getResponseData().code).toEqual(500);
       });
       it('should throw correct error if code is not a number', function () {
         expect(function () {

@@ -59,8 +59,13 @@ module.exports = function (req, res, next) {
     if (options.data instanceof Error) {
       options.data = formatErrorObject(options.data);
     }
+    if (options.code === undefined) {
+      console.log('setting code to 500');
+      options.code = 500;
+    }
     var responseData = {
       status: 'error',
+      code: options.code,
       message: options.message
     };
     if (process.env.NODE_ENV !== 'production') {
