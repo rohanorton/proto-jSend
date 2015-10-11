@@ -79,9 +79,10 @@ module.exports = function (req, res, next) {
       throw new Error('res.jSend.fail invoked without options');
     }
     var err = arg.err(options, {
-      data: ["object", "string"]
     }, {
+      data: ["object", "string"],
       code: "number",
+      message: "string",
     });
     if (err) {
       // Arg-Err calls 'properties' 'arguments'
@@ -98,7 +99,8 @@ module.exports = function (req, res, next) {
     var responseData = {
       status: 'fail',
       code: options.code,
-      data: options.data
+      data: options.data,
+      message: options.message
     };
     return sendResponse(options.code, responseData);
   };
