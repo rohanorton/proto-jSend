@@ -191,11 +191,6 @@ describe('jSend', function () {
         expect(res.statusCode).toBe(400);
         expect(getResponseData().code).toEqual(400);
       });
-      it('should throw correct error if data is not defined', function () {
-        expect(function () {
-          res.jSend.fail({message: 'foo', code: 404});
-        }).toThrowError('res.jSend.fail options validation: expected property data to be of type object (was undefined)');
-      });
       it('should throw correct error if code is not a number', function () {
         expect(function () {
           res.jSend.fail({message: 'foo', data: { validationMessage: 'foo'}, code: 'should be number'});
@@ -212,6 +207,10 @@ describe('jSend', function () {
       it('should set response data', function () {
         res.jSend.fail({ data: { foo: 'bar'}});
         expect(getResponseData().data).toEqual({foo: 'bar'});
+      });
+      it('should set response message', function () {
+        res.jSend.fail({ data: { foo: 'bar'}, message: 'this is a message'});
+        expect(getResponseData().message).toEqual('this is a message');
       });
     });
   });
