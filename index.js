@@ -1,6 +1,6 @@
 /*jslint node:true indent:2*/
 'use strict';
-var arg = require("arg-err");
+var arg = require("arg-err").config({ propErr: true });
 
 module.exports = function (req, res, next) {
 
@@ -48,8 +48,6 @@ module.exports = function (req, res, next) {
       data: "object"
     });
     if (err) {
-      // Arg-Err calls 'properties' 'arguments'
-      err = err.replace('argument', 'property');
       throw new Error('res.jSend.error options validation: ' + err);
     }
   }
@@ -85,8 +83,6 @@ module.exports = function (req, res, next) {
       message: "string",
     });
     if (err) {
-      // Arg-Err calls 'properties' 'arguments'
-      err = err.replace('argument', 'property');
       throw new Error('res.jSend.fail options validation: ' + err);
     }
   }

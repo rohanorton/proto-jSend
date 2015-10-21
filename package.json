@@ -18,6 +18,6 @@
     "onchange": "^1.1.0"
   },
   "dependencies": {
-    "arg-err": "0.0.9"
+    "arg-err": "0.1.0"
   }
 }
