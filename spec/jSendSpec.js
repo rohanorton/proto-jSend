@@ -20,6 +20,7 @@ beforeEach(function () {
   res = httpMocks.createResponse();
   next = function () { return; };
   spyOn(res, 'json').and.callThrough();
+  spyOn(res, 'jsonp').and.callThrough();
 });
 
 describe('jSend', function () {
@@ -49,6 +50,12 @@ describe('jSend', function () {
       res.jSend();
       expect(res.json).toHaveBeenCalled();
     });
+    it('should call res.jsend when req.query.callback is specified', function () {
+      req.query.callback = function () { return undefined; };
+      res.jSend();
+      expect(res.jsonp).toHaveBeenCalled();
+    });
+
     it('should send object to res.json when invoked', function () {
       res.jSend();
       expect(res.json).toHaveBeenCalledWith(jasmine.any(Object));
@@ -66,17 +73,33 @@ describe('jSend', function () {
       res.jSend(data);
       assert.deepEqual(getResponseData().data, data);
     });
+    it('should add metadata if it is specified', function () {
+      res.jSend({ posts: ['data']}, { count: 1});
+      assert.deepEqual(getResponseData().metadata, {count: 1});
+    });
     it('should send response code of 200', function () {
       res.jSend();
       assert.equal(res.statusCode, 200);
     });
-    it('should send response code of 201 if request was a POST', function () {
+    it('should send response code of 201 if request was a POST (not jsonp)', function () {
       req.method = 'POST';
       res.jSend();
       expect(res.statusCode).toBe(201);
     });
-    it('should send data of null if request was a DELETE', function () {
+    it('should send response code of 201 if request was a POST (using jsonp with _method)', function () {
+      req.method = 'GET'; // jsonp is always GET due to browser limitations
+      req._method = 'POST'; // _method property is used to specify method for jsonp requests so jsonp can be used to interact with restful web services
+      res.jSend();
+      expect(res.statusCode).toBe(201);
+    });
+    it('should send data of null if request was a DELETE (not jsonp)', function () {
       req.method = 'DELETE';
+      res.jSend([ 'this', 'should', 'not', 'be', 'sent', 'as', 'data']);
+      assert(getResponseData().data === null);
+    });
+    it('should send data of null if request was a DELETE (using jsonp with _method)', function () {
+      req.method = 'GET';
+      req._method = 'DELETE';
       res.jSend([ 'this', 'should', 'not', 'be', 'sent', 'as', 'data']);
       assert(getResponseData().data === null);
     });
@@ -85,8 +108,10 @@ describe('jSend', function () {
       it('should be function', function () {
         expect(res.jSend.error).toEqual(jasmine.any(Function));
       });
-      it('should throw correct error if invoked without an argument', function () {
-        expect(res.jSend.error).toThrowError('res.jSend.error invoked without argument');
+      it('should default code to 500', function () {
+        res.jSend.error({message: 'foo'});
+        expect(res.statusCode).toBe(500);
+        expect(getResponseData().code).toEqual(500);
       });
       it('should throw correct error if code is not a number', function () {
         expect(function () {
@@ -154,6 +179,38 @@ describe('jSend', function () {
           res.jSend.error(options);
           expect(getResponseData().data).toEqual(undefined);
         });
+      });
+    });
+
+    describe('res.jSend.fail', function () {
+      it('should be function', function () {
+        expect(res.jSend.fail).toEqual(jasmine.any(Function));
+      });
+      it('should default code to 400', function () {
+        res.jSend.fail({data: { validationMessage: 'foo'}});
+        expect(res.statusCode).toBe(400);
+        expect(getResponseData().code).toEqual(400);
+      });
+      it('should throw correct error if code is not a number', function () {
+        expect(function () {
+          res.jSend.fail({message: 'foo', data: { validationMessage: 'foo'}, code: 'should be number'});
+        }).toThrowError('res.jSend.fail options validation: expected optional property code to be of type number (was string)');
+      });
+      it('should set res status code to be specified code', function () {
+        res.jSend.fail({code: 401, data: { validationMessage: 'foo'}});
+        expect(res.statusCode).toEqual(401);
+      });
+      it('should set response status to fail', function () {
+        res.jSend.fail({ data: { validationMessage: 'foo'}});
+        expect(getResponseData().status).toEqual('fail');
+      });
+      it('should set response data', function () {
+        res.jSend.fail({ data: { foo: 'bar'}});
+        expect(getResponseData().data).toEqual({foo: 'bar'});
+      });
+      it('should set response message', function () {
+        res.jSend.fail({ data: { foo: 'bar'}, message: 'this is a message'});
+        expect(getResponseData().message).toEqual('this is a message');
       });
     });
   });
