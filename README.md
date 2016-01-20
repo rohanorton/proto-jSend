@@ -106,7 +106,7 @@ HTTP/1.1 400 Bad Request
 ### Events
 
 #### Error
-It is also possible to specifify a callback which can be called with error data which is sent to res.jSend.error.
+It is also possible to specify a callback which will be called with error data sent to res.jSend.error.
 - Example:
 
 ```js
