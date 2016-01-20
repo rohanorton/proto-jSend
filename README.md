@@ -1,7 +1,12 @@
 jSend
 =====
 
-Express middleware for [jSend](http://labs.omniti.com/labs/jsend "Original jSend specification") responses.
+[Express](http://expressjs.com/ "Fast, unopinionated, minimalist web framework for Node.js")
+ [middleware](http://expressjs.com/en/guide/using-middleware.html "using Expressjs middleware")
+ for
+ [jSend](http://labs.omniti.com/labs/jsend "Original jSend specification")
+ [responses](http://expressjs.com/en/4x/api.html#res "Expressjs responses")
+.
 
 ### Methods
 
