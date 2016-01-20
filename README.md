@@ -1,13 +1,10 @@
 jSend
 =====
 
-This module is still a work in progress and not yet ready for use in production
-
-
 Express middleware for jSend responses
 
 This module simplifies outputting data which conforms to the jsend specification found at:
-http://labs.omniti.com/labs/jsend
+[jsend specification](http://labs.omniti.com/labs/jsend "Original jSend specification")
 
 
 ### Methods
