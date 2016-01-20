@@ -101,18 +101,17 @@ HTTP/1.1 400 Bad Request
     "title": "Title property of type string is required"
   }
 }
+``` 
 
 ### Events
 
 #### Error
 It is also possible to specifify a callback which can be called with error data which is sent to res.jSend.error.
 - Example:
+
 ```js
-/**
 jSend.on('error', function (errorResponseData) {
   // error data could be logged to a file or external API here
   console.log('error', errorResponseData);
 });
 ```
-
-
