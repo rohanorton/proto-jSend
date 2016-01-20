@@ -1,10 +1,7 @@
 jSend
 =====
 
-Express middleware for jSend responses
-
-This module simplifies outputting data which conforms to the [jsend specification](http://labs.omniti.com/labs/jsend "Original jSend specification").
-
+Express middleware for [jSend](http://labs.omniti.com/labs/jsend "Original jSend specification") responses.
 
 ### Methods
 
@@ -106,8 +103,6 @@ HTTP/1.1 400 Bad Request
 
 #### Error
 It is also possible to specify a callback which will be called with error data sent to res.jSend.error.
-- Example:
-
 ```js
 jSend.on('error', function (errorResponseData) {
   // error data could be logged to a file or external API here
