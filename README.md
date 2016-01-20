@@ -3,8 +3,7 @@ jSend
 
 Express middleware for jSend responses
 
-This module simplifies outputting data which conforms to the jsend specification found at:
-[jsend specification](http://labs.omniti.com/labs/jsend "Original jSend specification")
+This module simplifies outputting data which conforms to the [jsend specification](http://labs.omniti.com/labs/jsend "Original jSend specification").
 
 
 ### Methods
