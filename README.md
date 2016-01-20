@@ -1,9 +1,31 @@
 jSend
 =====
 
-Express middleware for [jSend](http://labs.omniti.com/labs/jsend "Original jSend specification") responses.
+[Express](http://expressjs.com/ "Fast, unopinionated, minimalist web framework for Node.js")
+ [middleware](http://expressjs.com/en/guide/using-middleware.html "using Expressjs middleware")
+ for
+ [jSend](http://labs.omniti.com/labs/jsend "Original jSend specification")
+ [responses](http://expressjs.com/en/4x/api.html#res "Expressjs responses").
 
-### Methods
+
+# install
+
+With [npm](https://www.npmjs.com/) do:
+
+```
+npm install proto-jsend
+```
+
+Then assign as express middleware. This will add the jSend methods to the express request and response objects.
+```js
+var app = express(),
+ jSend = require('proto-jsend');
+
+app.use(jSend);
+
+```
+
+## Methods
 
 res.jSend
 ------------
@@ -99,7 +121,7 @@ HTTP/1.1 400 Bad Request
 }
 ``` 
 
-### Events
+## Events
 
 #### Error
 It is also possible to specify a callback which will be called with error data sent to res.jSend.error.
