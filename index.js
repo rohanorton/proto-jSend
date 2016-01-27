@@ -66,10 +66,10 @@ module.exports = function (req, res, next) {
       code: options.code,
       message: options.message
     };
+    module.exports.listeners('error').length && module.exports.emit('error', responseData);
     if (process.env.NODE_ENV !== 'production') {
       responseData.data = options.data || null;
     }
-    module.exports.listeners('error').length && module.exports.emit('error', responseData);
     return sendResponse(options.code, responseData);
   };
 
