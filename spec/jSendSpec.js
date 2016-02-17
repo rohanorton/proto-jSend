@@ -186,6 +186,12 @@ describe('jSend', function () {
       it('should be function', function () {
         expect(res.jSend.fail).toEqual(jasmine.any(Function));
       });
+      it('should throw error if no options passed', function () {
+        var fn = function () {
+          res.jSend.fail();
+        };
+        expect(fn).toThrowError(/invoked without options/);
+      });
       it('should default code to 400', function () {
         res.jSend.fail({data: { validationMessage: 'foo'}});
         expect(res.statusCode).toBe(400);
@@ -218,6 +224,13 @@ describe('jSend', function () {
   describe('jSend events', function () {
     beforeEach(function () {
       jSend(req, res, next);
+    });
+
+    it('should throw error if no options passed', function () {
+      var fn = function () {
+        res.jSend.error();
+      };
+      expect(fn).toThrowError(/invoked without options/);
     });
 
     it('should be possible to specify a callback which is invoked before res.jSend.error', function () {
