@@ -1,5 +1,7 @@
 jSend
 =====
+[![Build
+Status](https://travis-ci.org/rohanorton/proto-jSend.svg?branch=master)](https://travis-ci.org/rohanorton/proto-jSend)
 
 [Express](http://expressjs.com/ "Fast, unopinionated, minimalist web framework for Node.js")
  [middleware](http://expressjs.com/en/guide/using-middleware.html "using Expressjs middleware")
