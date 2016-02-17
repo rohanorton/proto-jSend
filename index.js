@@ -68,7 +68,9 @@ module.exports = function (req, res, next) {
     if (process.env.NODE_ENV !== 'production') {
       responseData.data = options.data || null;
     }
-    module.exports.listeners('error').length && module.exports.emit('error', responseData);
+    if (module.exports.listeners('error').length) {
+      module.exports.emit('error', responseData);
+    }
     return sendResponse(options.code, responseData);
   };
 
