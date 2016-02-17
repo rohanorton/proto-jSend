@@ -7,11 +7,15 @@
     "test": "jasmine",
     "lint": "jslint *.js **/*.js",
     "test:watch": "npm test -s; onchange '*.js' '**/*.js' -- npm test -s",
-    "lint:watch": "npm run lint -s; onchange '*.js' '**/*.js' -- npm run lint -s"
+    "lint:watch": "npm run lint -s; onchange '*.js' '**/*.js' -- npm run lint -s",
+    "coverage": "istanbul cover jasmine",
+    "coveralls": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "author": "Rohan Orton",
   "license": "MIT",
   "devDependencies": {
+    "coveralls": "^2.11.6",
+    "istanbul": "^0.4.2",
     "jasmine": "^2.3.1",
     "jslint": "^0.9.1",
     "node-mocks-http": "^1.5.0",
