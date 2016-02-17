@@ -220,7 +220,7 @@ describe('jSend', function () {
       });
     });
   });
-  
+
   describe('jSend events', function () {
     beforeEach(function () {
       jSend(req, res, next);
@@ -246,7 +246,7 @@ describe('jSend', function () {
           data: null
         };
       jSend.on('error', function (error) {
-        errorReceived = error;  
+        errorReceived = error;
       });
       res.jSend.error(exampleErrorToSend);
       expect(errorReceived).toEqual(expectedError);
