@@ -1,6 +1,7 @@
 /*jslint node:true indent:2*/
 'use strict';
-var arg = require("arg-err").config({ propErr: true });
+var arg = require("arg-err").config({ propErr: true }),
+  assert = require('assert');
 
 module.exports = function (req, res, next) {
 
@@ -38,9 +39,7 @@ module.exports = function (req, res, next) {
   }
 
   function validateErrorOptions(options) {
-    if (!options) {
-      throw new Error('res.jSend.error invoked without options');
-    }
+    assert(options, 'res.jSend.error invoked without options');
     var err = arg.err(options, {
       message: "string"
     }, {
@@ -74,18 +73,14 @@ module.exports = function (req, res, next) {
   };
 
   function validateFailOptions(options) {
-    if (!options) {
-      throw new Error('res.jSend.fail invoked without options');
-    }
+    assert(options,'res.jSend.fail invoked without options');
     var err = arg.err(options, {
     }, {
       data: ["object", "string"],
       code: "number",
       message: "string",
     });
-    if (err) {
-      throw new Error('res.jSend.fail options validation: ' + err);
-    }
+    assert(!err,'res.jSend.fail options validation: ' + err);
   }
 
   res.jSend.fail = function (options) {
