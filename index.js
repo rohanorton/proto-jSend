@@ -1,4 +1,4 @@
-/*jslint node:true indent:2*/
+/*jslint node:true indent:2 nomen:true*/
 'use strict';
 var arg = require("arg-err").config({ propErr: true }),
   assert = require('assert');
@@ -77,7 +77,7 @@ module.exports = function (req, res, next) {
   };
 
   function validateFailOptions(options) {
-    assert(options,'res.jSend.fail invoked without options');
+    assert(options, 'res.jSend.fail invoked without options');
     var required = {},
       optional = {
         data: ["object", "string"],
@@ -85,7 +85,7 @@ module.exports = function (req, res, next) {
         message: "string",
       },
       err = arg.err(options, required, optional);
-    assert(!err,'res.jSend.fail options validation: ' + err);
+    assert(!err, 'res.jSend.fail options validation: ' + err);
   }
 
   res.jSend.fail = function (options) {
