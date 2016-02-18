@@ -48,9 +48,7 @@ module.exports = function (req, res, next) {
         data: "object"
       },
       err = arg.err(options, required, optional);
-    if (err) {
-      throw new Error('res.jSend.error options validation: ' + err);
-    }
+    assert(!err, 'res.jSend.error options validation: ' + err);
   }
 
 
