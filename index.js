@@ -40,12 +40,14 @@ module.exports = function (req, res, next) {
 
   function validateErrorOptions(options) {
     assert(options, 'res.jSend.error invoked without options');
-    var err = arg.err(options, {
-      message: "string"
-    }, {
-      code: "number",
-      data: "object"
-    });
+    var required = {
+        message: "string"
+      },
+      optional = {
+        code: "number",
+        data: "object"
+      },
+      err = arg.err(options, required, optional);
     if (err) {
       throw new Error('res.jSend.error options validation: ' + err);
     }
@@ -76,12 +78,13 @@ module.exports = function (req, res, next) {
 
   function validateFailOptions(options) {
     assert(options,'res.jSend.fail invoked without options');
-    var err = arg.err(options, {
-    }, {
-      data: ["object", "string"],
-      code: "number",
-      message: "string",
-    });
+    var required = {},
+      optional = {
+        data: ["object", "string"],
+        code: "number",
+        message: "string",
+      },
+      err = arg.err(options, required, optional);
     assert(!err,'res.jSend.fail options validation: ' + err);
   }
 
