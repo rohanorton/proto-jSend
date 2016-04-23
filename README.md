@@ -124,14 +124,3 @@ HTTP/1.1 400 Bad Request
   }
 }
 ``` 
-
-## Events
-
-#### Error
-It is also possible to specify a callback which will be called with error data sent to res.jSend.error.
-```js
-jSend.on('error', function (errorResponseData) {
-  // error data could be logged to a file or external API here
-  console.log('error', errorResponseData);
-});
-```

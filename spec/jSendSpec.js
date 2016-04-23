@@ -220,37 +220,4 @@ describe('jSend', function () {
       });
     });
   });
-
-  describe('jSend events', function () {
-    beforeEach(function () {
-      jSend(req, res, next);
-    });
-
-    it('should throw error if no options passed', function () {
-      var fn = function () {
-        res.jSend.error();
-      };
-      expect(fn).toThrowError(/invoked without options/);
-    });
-
-    it('should be possible to specify a callback which is invoked before res.jSend.error', function () {
-      var errorReceived = null,
-        exampleErrorToSend = {
-          message: 'server error',
-          code: 500
-        },
-        expectedError = {
-          message: 'server error',
-          code: 500,
-          status: 'error',
-          data: null
-        };
-      jSend.on('error', function (error) {
-        errorReceived = error;
-      });
-      res.jSend.error(exampleErrorToSend);
-      expect(errorReceived).toEqual(expectedError);
-    });
-  });
-
 });
