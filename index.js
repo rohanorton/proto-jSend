@@ -1,6 +1,7 @@
-/*jslint node:true indent:2*/
+/*jslint node:true indent:2 nomen:true*/
 'use strict';
-var arg = require("arg-err").config({ propErr: true });
+var arg = require("arg-err").config({ propErr: true }),
+  assert = require('assert');
 
 module.exports = function (req, res, next) {
 
@@ -38,18 +39,16 @@ module.exports = function (req, res, next) {
   }
 
   function validateErrorOptions(options) {
-    if (!options) {
-      throw new Error('res.jSend.error invoked without options');
-    }
-    var err = arg.err(options, {
-      message: "string"
-    }, {
-      code: "number",
-      data: "object"
-    });
-    if (err) {
-      throw new Error('res.jSend.error options validation: ' + err);
-    }
+    assert(options, 'res.jSend.error invoked without options');
+    var required = {
+        message: "string"
+      },
+      optional = {
+        code: "number",
+        data: "object"
+      },
+      err = arg.err(options, required, optional);
+    assert(!err, 'res.jSend.error options validation: ' + err);
   }
 
 
@@ -69,23 +68,19 @@ module.exports = function (req, res, next) {
     if (process.env.NODE_ENV !== 'production') {
       responseData.data = options.data || null;
     }
-    module.exports.listeners('error').length && module.exports.emit('error', responseData);
     return sendResponse(options.code, responseData);
   };
 
   function validateFailOptions(options) {
-    if (!options) {
-      throw new Error('res.jSend.fail invoked without options');
-    }
-    var err = arg.err(options, {
-    }, {
-      data: ["object", "string"],
-      code: "number",
-      message: "string",
-    });
-    if (err) {
-      throw new Error('res.jSend.fail options validation: ' + err);
-    }
+    assert(options, 'res.jSend.fail invoked without options');
+    var required = {},
+      optional = {
+        data: ["object", "string"],
+        code: "number",
+        message: "string",
+      },
+      err = arg.err(options, required, optional);
+    assert(!err, 'res.jSend.fail options validation: ' + err);
   }
 
   res.jSend.fail = function (options) {
@@ -105,6 +100,3 @@ module.exports = function (req, res, next) {
 
   return next();
 };
-
-// add events
-module.exports.__proto__ = new (require('events').EventEmitter)();

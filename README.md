@@ -1,5 +1,9 @@
 jSend
 =====
+[![Build
+Status](https://travis-ci.org/rohanorton/proto-jSend.svg?branch=master)](https://travis-ci.org/rohanorton/proto-jSend)
+[![Coverage
+Status](https://coveralls.io/repos/github/rohanorton/proto-jSend/badge.svg?branch=master)](https://coveralls.io/github/rohanorton/proto-jSend?branch=master)
 
 [Express](http://expressjs.com/ "Fast, unopinionated, minimalist web framework for Node.js")
  [middleware](http://expressjs.com/en/guide/using-middleware.html "using Expressjs middleware")
@@ -120,14 +124,3 @@ HTTP/1.1 400 Bad Request
   }
 }
 ``` 
-
-## Events
-
-#### Error
-It is also possible to specify a callback which will be called with error data sent to res.jSend.error.
-```js
-jSend.on('error', function (errorResponseData) {
-  // error data could be logged to a file or external API here
-  console.log('error', errorResponseData);
-});
-```
